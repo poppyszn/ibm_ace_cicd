@@ -1,0 +1,14 @@
+# ace-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: ibm-ace-service
+  labels:
+    app: ibm-ace
+spec:
+  type: ClusterIP
+  ports:
+  - port: 7600 # Adjust the port based on ACE configuration
+    targetPort: 7600
+  selector:
+    app: ibm-ace

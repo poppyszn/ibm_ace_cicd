@@ -1,0 +1,29 @@
+# ace-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ibm-ace
+  labels:
+    app: ibm-ace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ibm-ace
+  template:
+    metadata:
+      labels:
+        app: ibm-ace
+    spec:
+      containers:
+      - name: ibm-ace
+        image: ibmcom/ace:latest # Replace with your image tag
+        ports:
+        - containerPort: 7600 # Adjust based on ACE port configuration
+        env:
+        - name: LICENSE
+          value: accept
+        - name: NODENAME
+          value: "ace-node"
+        - name: ACE_WORKING_DIR
+          value: "/home/aceuser" # Modify according to your setup
