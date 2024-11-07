@@ -1,4 +1,3 @@
-# ace-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -6,9 +5,24 @@ metadata:
   labels:
     app: ibm-ace
 spec:
-  type: ClusterIP
-  ports:
-  - port: 7600 # Adjust the port based on ACE configuration
-    targetPort: 7600
+  type: NodePort  # Changed to NodePort to expose the service externally
   selector:
     app: ibm-ace
+  ports:
+  - name: ui-port
+    port: 7600
+    targetPort: 7600
+    nodePort: 30076  # Adjust as needed
+  - name: additional-port-7800
+    port: 7800
+    targetPort: 7800
+    nodePort: 30078  # Adjust as needed
+  - name: additional-port-7843
+    port: 7843
+    targetPort: 7843
+    nodePort: 30084  # Adjust as needed
+  # Uncomment the following lines if you have enabled metrics
+  #- name: metrics-port
+  #  port: 9483
+  #  targetPort: 9483
+  #  nodePort: 30948  # Adjust as needed
