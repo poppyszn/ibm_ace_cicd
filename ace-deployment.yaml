@@ -1,4 +1,3 @@
-# ace-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,11 +18,26 @@ spec:
       - name: ibm-ace
         image: ibmcom/ace:latest # Replace with your image tag
         ports:
-        - containerPort: 7600 # Adjust based on ACE port configuration
+        - containerPort: 7600  # ACE Web UI and HTTP listener
+        - containerPort: 7800  # Additional port as per documentation
+        - containerPort: 7843  # Additional port as per documentation
         env:
         - name: LICENSE
           value: accept
-        - name: NODENAME
-          value: "ace-node"
+        - name: ACE_SERVER_NAME
+          value: ACESERVER
         - name: ACE_WORKING_DIR
-          value: "/home/aceuser" # Modify according to your setup
+          value: "/home/aceuser/ace-server" # Adjusted according to documentation
+        # Uncomment the following lines to enable metrics
+        #- name: ACE_ENABLE_METRICS
+        #  value: "true"
+        #- containerPort: 9483  # Port for Prometheus metrics
+        # Uncomment the following lines if you have initial configuration files
+        #volumeMounts:
+        #- name: initial-config
+        #  mountPath: /home/aceuser/initial-config
+      # Uncomment the following lines if you have initial configuration files
+      #volumes:
+      #- name: initial-config
+      #  configMap:
+      #    name: ace-initial-config  # Replace with your ConfigMap name if using ConfigMap
