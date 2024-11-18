@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ibm-ace
-        image: preciousokpor/ibm-barfiles-image:20241115181258
+        image: preciousokpor/ibm-barfiles-image:20241118085238
         ports:
         - containerPort: 7600  # ACE Web UI and HTTP listener
         - containerPort: 7800  # Additional port as per documentation
